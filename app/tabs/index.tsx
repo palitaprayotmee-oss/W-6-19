@@ -40,7 +40,7 @@ export default function Home() {
       
       <View style={styles.header}>
         <View>
-          <Text style={styles.title}>รายการสั่งซื้อ ✨</Text>
+          <Text style={styles.title}>อาหารอีสาน ✨</Text>
           <Text style={styles.subtitle}>จัดการเมนูที่คุณเลือกไว้</Text>
         </View>
         <View style={styles.badge}>
