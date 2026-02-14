@@ -35,57 +35,61 @@ export default function Add() {
 
     setBrand("")
     setSize("")
-
-    // 👉 กลับหน้าแรกอัตโนมัติ
     router.back()
   }
 
   return (
-    // KeyboardAvoidingView ช่วยให้แป้นพิมพ์ไม่บังช่องกรอก
     <KeyboardAvoidingView 
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
-          <Text style={styles.title}>เพิ่มรายการสั่งซื้อ 📝</Text>
-          <Text style={styles.subtitle}>กรอกรายละเอียดเมนูที่คุณต้องการด้านล่าง</Text>
+          {/* ส่วนหัวข้อ */}
+          <View style={styles.headerContainer}>
+            <Text style={styles.title}>เพิ่มรายการใหม่ ✨</Text>
+            <Text style={styles.subtitle}>บันทึกเมนูโปรดของคุณในวันนี้</Text>
+          </View>
 
+          {/* ช่องกรอกชื่อเมนู */}
           <View style={styles.inputGroup}>
             <Text style={styles.label}>ชื่อเมนู</Text>
             <TextInput
-              placeholder="เช่น ข้าวมันไก่, กาแฟดำ"
-              placeholderTextColor="#A0A0A0"
+              placeholder="เช่น ชานมไข่มุก, ส้มตำ"
+              placeholderTextColor="#C48E9B"
               value={brand}
               onChangeText={setBrand}
               style={styles.input}
             />
           </View>
 
+          {/* ช่องกรอกจำนวน */}
           <View style={styles.inputGroup}>
             <Text style={styles.label}>จำนวน (จาน/แก้ว)</Text>
             <TextInput
-              placeholder="ระบุจำนวนตัวเลข"
-              placeholderTextColor="#A0A0A0"
+              placeholder="ใส่จำนวนที่ต้องการ"
+              placeholderTextColor="#C48E9B"
               value={size}
               onChangeText={setSize}
-              keyboardType="numeric" // ให้ขึ้นแป้นพิมพ์ตัวเลข
+              keyboardType="numeric"
               style={styles.input}
             />
           </View>
 
+          {/* ปุ่มบันทึก - สีชมพูเข้มขึ้นเพื่อให้ดูเด่น */}
           <Pressable 
             style={({ pressed }) => [
               styles.button,
-              { backgroundColor: pressed ? '#0077ED' : '#1e90ff' }
+              { backgroundColor: pressed ? '#FF85A1' : '#FF4D6D' }
             ]} 
             onPress={saveData}
           >
             <Text style={styles.buttonText}>บันทึกรายการ</Text>
           </Pressable>
 
+          {/* ปุ่มยกเลิก */}
           <Pressable style={styles.cancelBtn} onPress={() => router.back()}>
-            <Text style={styles.cancelBtnText}>ยกเลิก</Text>
+            <Text style={styles.cancelBtnText}>กลับไปหน้าก่อนหน้า</Text>
           </Pressable>
         </View>
       </TouchableWithoutFeedback>
@@ -96,72 +100,78 @@ export default function Add() {
 const styles = StyleSheet.create({
   container: { 
     flex: 1, 
-    backgroundColor: "#F8F9FA" 
+    backgroundColor: "#FFF0F3" // สีชมพูพาสเทลอ่อนมาก
   },
   inner: {
     padding: 24,
     flex: 1,
-    justifyContent: "center", // วางเนื้อหาไว้กลางจอ
+    justifyContent: "center",
+  },
+  headerContainer: {
+    marginBottom: 30,
   },
   title: { 
-    fontSize: 28, 
-    fontWeight: "800", 
-    color: "#2D3436", 
-    marginBottom: 8 
+    fontSize: 30, 
+    fontWeight: "900", 
+    color: "#590D22", // สีน้ำตาลแดงเข้มเพื่อให้ตัดกับชมพู
+    marginBottom: 4 
   },
   subtitle: {
     fontSize: 16,
-    color: "#636E72",
-    marginBottom: 32,
+    color: "#800F2F",
+    opacity: 0.7,
   },
   inputGroup: {
     marginBottom: 20,
   },
   label: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#2D3436",
+    fontSize: 15,
+    fontWeight: "700",
+    color: "#590D22",
     marginBottom: 8,
     marginLeft: 4,
   },
   input: { 
     backgroundColor: "#fff",
-    borderRadius: 12,
-    padding: 16,
-    fontSize: 16,
-    borderWidth: 1,
-    borderColor: "#E0E0E0",
-    // Shadow สำหรับความนูน
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  button: {
-    marginTop: 10,
+    borderRadius: 16,
     padding: 18,
-    borderRadius: 15,
-    alignItems: "center",
-    shadowColor: "#1e90ff",
+    fontSize: 16,
+    borderWidth: 1.5,
+    borderColor: "#FFB3C1", // ขอบสีชมพูอ่อน
+    color: "#590D22",
+    // Shadow
+    shadowColor: "#FFB3C1",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 5,
-    elevation: 5,
+    elevation: 2,
+  },
+  button: {
+    marginTop: 15,
+    padding: 18,
+    borderRadius: 16,
+    alignItems: "center",
+    shadowColor: "#FF4D6D",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    elevation: 6,
   },
   buttonText: { 
     color: "#fff", 
-    fontWeight: "bold", 
-    fontSize: 18 
+    fontWeight: "800", 
+    fontSize: 18,
+    letterSpacing: 0.5
   },
   cancelBtn: {
-    marginTop: 16,
+    marginTop: 20,
     alignItems: "center",
     padding: 10,
   },
   cancelBtnText: {
-    color: "#A0A0A0",
+    color: "#C9184A",
     fontSize: 14,
     fontWeight: "600",
+    textDecorationLine: 'underline'
   }
 })
